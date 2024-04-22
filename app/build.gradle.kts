@@ -60,4 +60,12 @@ dependencies {
     //gif
     implementation( "pl.droidsonroids.gif:android-gif-drawable:1.2.22")
 
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.3.9")
+
+
 }
