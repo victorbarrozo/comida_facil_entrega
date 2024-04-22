@@ -1,14 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".InicioFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linear_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="InicioFragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    <TextView
+        android:id="@+id/tv_inicio"
+        android:layout_weight="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Início"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/_25ssp"
+        android:fontFamily="@font/myfont"
+        android:textStyle="bold"/>
+        <ImageView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_search"/>
+    </LinearLayout>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_oque_quer_comer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="O que quer comer"
+        android:fontFamily="@font/myfont"
+        android:textSize="@dimen/_17ssp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/linear_header"
+        app:layout_constraintTop_toBottomOf="@id/linear_header"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_comida_aleatoria"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_oque_quer_comer">
+
+        <ImageView
+            android:id="@+id/img_comida_aleatoria"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primary"
+            />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_mais_populares"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item mais populares"
+        android:textStyle="bold"
+        android:textSize="@dimen/_17ssp"
+        android:fontFamily="@font/myfont"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/card_comida_aleatoria"
+        app:layout_constraintTop_toBottomOf="@+id/card_comida_aleatoria" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rec_comidas_populares"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_mais_populares"/>
+    <TextView
+        android:id="@+id/tv_categorias"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categorias"
+        android:textStyle="bold"
+        android:textSize="@dimen/_17ssp"
+        android:fontFamily="@font/myfont"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/rec_comidas_populares"
+        app:layout_constraintTop_toBottomOf="@+id/rec_comidas_populares"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginEnd="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_categorias">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_categorias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"/>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
