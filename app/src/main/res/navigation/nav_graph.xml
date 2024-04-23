@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/inicioFragment"
-        android:name="com.victorbarrozo.comidafacil.InicioFragment"
+        android:name="com.victorbarrozo.comidafacil.fragments.InicioFragment"
         android:label="fragment_inicio"
         tools:layout="@layout/fragment_inicio" />
     <fragment
         android:id="@+id/favoritosFragment"
-        android:name="com.victorbarrozo.comidafacil.FavoritosFragment"
+        android:name="com.victorbarrozo.comidafacil.fragments.FavoritosFragment"
         android:label="fragment_favoritos"
         tools:layout="@layout/fragment_favoritos" />
     <fragment
         android:id="@+id/categoriasFragment"
-        android:name="com.victorbarrozo.comidafacil.CategoriasFragment"
+        android:name="com.victorbarrozo.comidafacil.fragments.CategoriasFragment"
         android:label="fragment_categorias"
         tools:layout="@layout/fragment_categorias" />
 </navigation>
