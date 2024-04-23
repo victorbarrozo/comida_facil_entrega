@@ -1,27 +1,26 @@
 package com.victorbarrozo.comidafacil.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.victorbarrozo.comidafacil.R
 import com.victorbarrozo.comidafacil.databinding.FragmentInicioBinding
-import com.victorbarrozo.comidafacil.pojo.ListaComida
 import com.victorbarrozo.comidafacil.pojo.Meal
-import com.victorbarrozo.comidafacil.retrofit.RetrofitInstance
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.victorbarrozo.comidafacil.viewModel.InicioViewModel
+
 
 
 class InicioFragment : Fragment() {
     private lateinit var binding: FragmentInicioBinding
+    private lateinit var inicioMvvm: InicioViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        inicioMvvm = ViewModelProvider(this).get( InicioViewModel::class.java )
     }
 
     override fun onCreateView(
@@ -36,23 +35,16 @@ class InicioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        RetrofitInstance.api.getComidaAleatoria().enqueue(object : Callback< ListaComida > {
-            override fun onResponse(call: Call<ListaComida>, response: Response<ListaComida>) {
-                if ( response.body() != null ) {
-                    val comidaAleatoria: Meal = response.body()!!.meals[0]
-                    //Log.d ( "test", "meal id ${comidaAleatoria.idMeal}")
-                    Glide.with( this@InicioFragment )
-                        .load( comidaAleatoria.strMealThumb )
-                        .into( binding.imgComidaAleatoria )
+        inicioMvvm.getComidaAleatoria()
+        observarComidaAleatoria()
+    }
 
-
-                }else{
-                    return
-                }
-            }
-
-            override fun onFailure(call: Call<ListaComida>, t: Throwable) {
-                Log.d( "homeFragment", t.message.toString())
+    private fun observarComidaAleatoria() {
+        inicioMvvm.observarComidaAleatoriaLiveData().observe( viewLifecycleOwner,object : Observer<Meal> {
+            override fun onChanged(value: Meal) {
+                Glide.with( this@InicioFragment )
+                    .load( value.strMealThumb )
+                    .into( binding.imgComidaAleatoria )
             }
 
         })

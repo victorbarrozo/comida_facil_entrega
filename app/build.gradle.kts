@@ -67,5 +67,11 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //ViewModel
+    val lifecycle_version = "2.7.0"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    //implementation ("android.arch.lifecycle:extensions:1.1.0")
+
 
 }
