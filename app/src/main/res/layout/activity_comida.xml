@@ -41,6 +41,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_to_favorites"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
@@ -117,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:textColor="@color/black"
-                android:layout_marginEnd="@dimen/_50sdp"
+                android:layout_marginBottom="@dimen/_150sdp"
                 app:layout_constraintStart_toStartOf="@id/tv_instrucoes"
                 app:layout_constraintTop_toBottomOf="@id/tv_instrucoes" />
 
@@ -133,9 +134,11 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="@dimen/_10sdp"/>
     <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/appBar"
+        android:indeterminate="true"
         app:layout_anchorGravity="bottom"
-        android:visibility="gone"/>
+        />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

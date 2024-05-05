@@ -1,16 +1,28 @@
 package com.victorbarrozo.comidafacil.retrofit
 
-import com.victorbarrozo.comidafacil.pojo.ListaComida
-import com.victorbarrozo.comidafacil.pojo.Meal
+import com.victorbarrozo.comidafacil.pojo.Category
+import com.victorbarrozo.comidafacil.pojo.ListaCategoria
+import com.victorbarrozo.comidafacil.pojo.ListaRefeicoes
+import com.victorbarrozo.comidafacil.pojo.ListaTodasCategorias
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ComidaApi {
     @GET("random.php")
-    fun getComidaAleatoria(): Call<ListaComida>
+    fun getComidaAleatoria(): Call<ListaRefeicoes>
 
     @GET ("lookup.php?")
-    fun getDetalhesComidas( @Query("i") id: String ): Call<ListaComida>
+    fun getDetalhesComidas( @Query("i") id: String ): Call<ListaRefeicoes>
+
+    @GET ("filter.php?")
+    fun pegarItemPopular(@Query("c") categoriaNome: String): Call<ListaCategoria>
+
+    @GET ("categories.php")
+    fun pegarCategorias(): Call<ListaTodasCategorias>
+
+    @GET ("filter.php")
+    fun pegarRefeicoesPorCategoria (@Query ("c") categoriaNome: String ): Call<ListaCategoria>
+
 
 }
