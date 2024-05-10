@@ -1,6 +1,7 @@
 package com.victorbarrozo.comidafacil.viewModel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
@@ -32,5 +33,7 @@ class CategoriaRefeicoesViewModel : ViewModel() {
 
             })
     }
-
+    fun observarRefeicoesLiveData(): LiveData <List<CategoriaRefeicoes>> {
+    return refeicoesLiveData
+    }
 }
