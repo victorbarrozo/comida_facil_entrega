@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+
 }
 
 android {
@@ -50,6 +51,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
+
+
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
@@ -80,6 +83,13 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
+  //  kapt("androidx.room:room-compiler:$room_version")
+    //ksp ("androidx.room:room-compiler:$room_version")
+
+
+
+
+
 
 
 }

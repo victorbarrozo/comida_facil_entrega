@@ -1,20 +1,15 @@
 package com.victorbarrozo.comidafacil.activities
 
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.victorbarrozo.comidafacil.R
 import com.victorbarrozo.comidafacil.databinding.ActivityComidaBinding
-import com.victorbarrozo.comidafacil.databinding.FragmentInicioBinding
 import com.victorbarrozo.comidafacil.fragments.InicioFragment
 import com.victorbarrozo.comidafacil.pojo.Meal
 import com.victorbarrozo.comidafacil.viewModel.MealViewModel
@@ -62,7 +57,7 @@ class ComidaActivity : AppCompatActivity() {
                 binding.tvCategoria.text = "Categoria: ${meal!!.strCategory}"
                 binding.tvArea.text = "Área: ${meal.strArea}"
                 binding.tvTextCompleto.text = meal.strInstructions
-                youtubeLink = meal.strYoutube
+                youtubeLink = meal.strYoutube!!
             }
         })
     }
