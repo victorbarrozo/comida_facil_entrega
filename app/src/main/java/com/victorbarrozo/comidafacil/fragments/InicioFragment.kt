@@ -2,29 +2,28 @@ package com.victorbarrozo.comidafacil.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.victorbarrozo.comidafacil.activities.CategoriaRefeicoesActivity
 import com.victorbarrozo.comidafacil.activities.ComidaActivity
+import com.victorbarrozo.comidafacil.activities.MainActivity
 import com.victorbarrozo.comidafacil.adapters.MaisPopularesAdapters
 import com.victorbarrozo.comidafacil.adapters.TodasCategoriasAdapter
 import com.victorbarrozo.comidafacil.databinding.FragmentInicioBinding
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
 import com.victorbarrozo.comidafacil.pojo.Meal
 import com.victorbarrozo.comidafacil.viewModel.InicioViewModel
-import java.util.ArrayList
 
 
 class InicioFragment : Fragment() {
     private lateinit var binding: FragmentInicioBinding
-    private lateinit var inicioMvvm: InicioViewModel
+    private lateinit var viewModel: InicioViewModel
     private lateinit var comidaAleatoria: Meal
     private lateinit var itemPopularAdapter: MaisPopularesAdapters
     private lateinit var todasCategoriasAdapter: TodasCategoriasAdapter
@@ -37,7 +36,8 @@ class InicioFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inicioMvvm = ViewModelProvider(this).get( InicioViewModel::class.java )
+        //inicioMvvm = ViewModelProvider(this)[InicioViewModel::class.java]
+        viewModel = (activity as MainActivity).viewModel
 
         itemPopularAdapter = MaisPopularesAdapters()
     }
@@ -55,16 +55,16 @@ class InicioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         preparaItemPopularesRecyclerView()
 
-        inicioMvvm.getComidaAleatoria()
+        viewModel.getComidaAleatoria()
         observarComidaAleatoria()
         onComidaAleatoriaClick()
 
-        inicioMvvm.pegarItemPopular()
+        viewModel.pegarItemPopular()
         observarItemPopularLiveData()
         aoClicarItemPopular()
 
         prepararCategoriasRecyclerView()
-        inicioMvvm.pegarListaTodasCategorias()
+        viewModel.pegarListaTodasCategorias()
         observarTodasCategoriasLiveData()
         aoClicarCategoria()
 
@@ -92,7 +92,7 @@ class InicioFragment : Fragment() {
     }
 
     private fun observarTodasCategoriasLiveData() {
-        inicioMvvm.observarTodasCategoriasLiveData().observe( viewLifecycleOwner, Observer {categorias->
+        viewModel.observarTodasCategoriasLiveData().observe( viewLifecycleOwner, Observer { categorias->
                 todasCategoriasAdapter.setListaTodasCategorias( categorias )
         } )
     }
@@ -115,7 +115,7 @@ class InicioFragment : Fragment() {
     }
 
     private fun observarItemPopularLiveData() {
-        inicioMvvm.observaritempopularLiveData().observe(viewLifecycleOwner,
+        viewModel.observaritempopularLiveData().observe(viewLifecycleOwner,
         { listaRefeicoes ->
             itemPopularAdapter.setRefeicao( listaRefeicoes = listaRefeicoes as ArrayList<CategoriaRefeicoes> )
 
@@ -133,7 +133,7 @@ class InicioFragment : Fragment() {
     }
 
     private fun observarComidaAleatoria() {
-        inicioMvvm.observarComidaAleatoriaLiveData().observe( viewLifecycleOwner)
+        viewModel.observarComidaAleatoriaLiveData().observe( viewLifecycleOwner)
         {meal->
             Glide.with(this@InicioFragment)
                 .load(meal!!.strMealThumb)

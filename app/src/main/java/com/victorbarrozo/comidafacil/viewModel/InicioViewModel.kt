@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.victorbarrozo.comidafacil.db.MealDataBase
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
 import com.victorbarrozo.comidafacil.pojo.Category
 import com.victorbarrozo.comidafacil.pojo.ListaCategoria
@@ -15,10 +16,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class InicioViewModel(): ViewModel() {
+class InicioViewModel(
+    private val mealDataBase: MealDataBase
+): ViewModel() {
     private var comidaAleatoriaLiveData= MutableLiveData<Meal>()
     private var itemPopularLiveData= MutableLiveData<List<CategoriaRefeicoes>>()
     private var todasCategoriasLiveData = MutableLiveData<List<Category>>()
+    private var refeicoesFavoritasLiveData = mealDataBase.mealDao().getAllMeals()
     fun getComidaAleatoria() {
         RetrofitInstance.api.getComidaAleatoria().enqueue(object : Callback<ListaRefeicoes> {
             override fun onResponse(call: Call<ListaRefeicoes>, response: Response<ListaRefeicoes>) {
@@ -85,5 +89,8 @@ class InicioViewModel(): ViewModel() {
 
     fun observarTodasCategoriasLiveData(): LiveData<List<Category>>{
         return todasCategoriasLiveData
+    }
+    fun observeRefeicaoFavoridaLiveData(): LiveData<List<Meal>>{
+        return refeicoesFavoritasLiveData
     }
 }
