@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.victorbarrozo.comidafacil.db.MealDataBase
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
 import com.victorbarrozo.comidafacil.pojo.Category
@@ -12,6 +13,7 @@ import com.victorbarrozo.comidafacil.pojo.ListaRefeicoes
 import com.victorbarrozo.comidafacil.pojo.ListaTodasCategorias
 import com.victorbarrozo.comidafacil.pojo.Meal
 import com.victorbarrozo.comidafacil.retrofit.RetrofitInstance
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,6 +81,16 @@ class InicioViewModel(
                 Log.d ( "home_fragment", t.message.toString())
            }
         })
+    }
+    fun deleteMeal(meal: Meal){
+        viewModelScope.launch{
+           mealDataBase.mealDao().delete(meal)
+        }
+    }
+    fun insertMeal(meal : Meal){
+        viewModelScope.launch {
+            mealDataBase.mealDao().upsert( meal )
+        }
     }
     fun observarComidaAleatoriaLiveData(): LiveData<Meal> {
         return comidaAleatoriaLiveData
