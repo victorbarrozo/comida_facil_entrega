@@ -25,6 +25,7 @@ class InicioViewModel(
     private var itemPopularLiveData= MutableLiveData<List<CategoriaRefeicoes>>()
     private var todasCategoriasLiveData = MutableLiveData<List<Category>>()
     private var refeicoesFavoritasLiveData = mealDataBase.mealDao().getAllMeals()
+    private var bottomSheetLiveData = MutableLiveData<Meal>()
     fun getComidaAleatoria() {
         RetrofitInstance.api.getComidaAleatoria().enqueue(object : Callback<ListaRefeicoes> {
             override fun onResponse(call: Call<ListaRefeicoes>, response: Response<ListaRefeicoes>) {
@@ -82,6 +83,24 @@ class InicioViewModel(
            }
         })
     }
+    fun getRefeicaoPorId(id: String) {
+        RetrofitInstance.api.getDetalhesComidas(id).enqueue( object : Callback<ListaRefeicoes>{
+            override fun onResponse(call: Call<ListaRefeicoes>, response: Response<ListaRefeicoes>) {
+                val meal = response.body()?.meals?.first()
+                meal?.let {meal->
+                    bottomSheetLiveData.postValue(meal)
+                }
+            }
+
+            override fun onFailure(call: Call<ListaRefeicoes>, t: Throwable) {
+                Log.d("homeViewModel", t.message.toString())
+            }
+
+
+        })
+
+
+    }
     fun deleteMeal(meal: Meal){
         viewModelScope.launch{
            mealDataBase.mealDao().delete(meal)
@@ -105,4 +124,8 @@ class InicioViewModel(
     fun observeRefeicaoFavoridaLiveData(): LiveData<List<Meal>>{
         return refeicoesFavoritasLiveData
     }
+
+    fun observeBottomSheetLiveData(): LiveData<Meal> = bottomSheetLiveData
+
+
 }

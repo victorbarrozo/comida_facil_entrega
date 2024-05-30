@@ -5,6 +5,7 @@
          <item name="colorPrimary">@color/primary</item>
          <item name="colorPrimaryVariant">@color/primary</item>
          <item name="colorOnPrimary">@color/white</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="Theme.ComidaFacil" parent="Base.Theme.ComidaFacil" />

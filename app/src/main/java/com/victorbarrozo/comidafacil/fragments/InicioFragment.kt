@@ -16,6 +16,7 @@ import com.victorbarrozo.comidafacil.activities.MainActivity
 import com.victorbarrozo.comidafacil.adapters.MaisPopularesAdapters
 import com.victorbarrozo.comidafacil.adapters.TodasCategoriasAdapter
 import com.victorbarrozo.comidafacil.databinding.FragmentInicioBinding
+import com.victorbarrozo.comidafacil.fragments.bottomSheet.MealBottomSheetFragment
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
 import com.victorbarrozo.comidafacil.pojo.Meal
 import com.victorbarrozo.comidafacil.viewModel.InicioViewModel
@@ -68,7 +69,16 @@ class InicioFragment : Fragment() {
         observarTodasCategoriasLiveData()
         aoClicarCategoria()
 
+        aoLogoClickEmPopular()
 
+
+    }
+
+    private fun aoLogoClickEmPopular() {
+        itemPopularAdapter.onLongItemClick = {meal->
+            val mealBottomSheetFragment = MealBottomSheetFragment.newInstance(meal.idMeal)
+            mealBottomSheetFragment.show(childFragmentManager, "Meal Info")
+        }
     }
 
     private fun aoClicarCategoria() {

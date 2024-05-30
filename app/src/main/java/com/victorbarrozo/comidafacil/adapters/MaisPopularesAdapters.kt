@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.victorbarrozo.comidafacil.databinding.PopularItemBinding
 import com.victorbarrozo.comidafacil.pojo.CategoriaRefeicoes
-import java.util.ArrayList
 
 class MaisPopularesAdapters(): RecyclerView.Adapter<MaisPopularesAdapters.ComidasPopularesViewHolder>() {
     lateinit var onItemClick: ((CategoriaRefeicoes)-> Unit)
+    lateinit var onLongItemClick: ((CategoriaRefeicoes)-> Unit)
     private var listaRefeicoes= ArrayList<CategoriaRefeicoes>()
     fun setRefeicao(listaRefeicoes: ArrayList<CategoriaRefeicoes>){
         this.listaRefeicoes = listaRefeicoes
@@ -27,6 +27,10 @@ class MaisPopularesAdapters(): RecyclerView.Adapter<MaisPopularesAdapters.Comida
             .into( holder.binding.imgPopularItem)
         holder.itemView.setOnClickListener {
             onItemClick.invoke( listaRefeicoes[position] )
+        }
+        holder.itemView.setOnClickListener {
+            onLongItemClick.invoke( listaRefeicoes[position] )
+            true
         }
     }
     override fun getItemCount(): Int {
