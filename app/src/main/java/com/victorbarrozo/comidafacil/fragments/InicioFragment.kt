@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.victorbarrozo.comidafacil.R
 import com.victorbarrozo.comidafacil.activities.CategoriaRefeicoesActivity
 import com.victorbarrozo.comidafacil.activities.ComidaActivity
 import com.victorbarrozo.comidafacil.activities.MainActivity
@@ -56,7 +58,6 @@ class InicioFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         preparaItemPopularesRecyclerView()
 
-        viewModel.getComidaAleatoria()
         observarComidaAleatoria()
         onComidaAleatoriaClick()
 
@@ -71,7 +72,15 @@ class InicioFragment : Fragment() {
 
         aoLogoClickEmPopular()
 
+        aoClicarNoProcurar()
 
+
+    }
+
+    private fun aoClicarNoProcurar() {
+        binding.imgProcurar.setOnClickListener {
+            findNavController().navigate(R.id.action_inicioFragment_to_procurarFragment)
+        }
     }
 
     private fun aoLogoClickEmPopular() {

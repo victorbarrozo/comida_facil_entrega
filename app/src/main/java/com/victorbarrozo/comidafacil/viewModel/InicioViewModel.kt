@@ -26,6 +26,11 @@ class InicioViewModel(
     private var todasCategoriasLiveData = MutableLiveData<List<Category>>()
     private var refeicoesFavoritasLiveData = mealDataBase.mealDao().getAllMeals()
     private var bottomSheetLiveData = MutableLiveData<Meal>()
+    private var procurarMealsLiveData = MutableLiveData<List<Meal>>()
+
+    init {
+        getComidaAleatoria()
+    }
     fun getComidaAleatoria() {
         RetrofitInstance.api.getComidaAleatoria().enqueue(object : Callback<ListaRefeicoes> {
             override fun onResponse(call: Call<ListaRefeicoes>, response: Response<ListaRefeicoes>) {
@@ -110,6 +115,27 @@ class InicioViewModel(
         viewModelScope.launch {
             mealDataBase.mealDao().upsert( meal )
         }
+    }
+    fun procurarRefeicoes(searchQuery: String) {
+        RetrofitInstance.api.shearchMeal(searchQuery).enqueue(object : Callback<ListaRefeicoes>{
+            override fun onResponse(
+                call: Call<ListaRefeicoes>,
+                response: Response<ListaRefeicoes>
+            ) {
+                val listaRefeicoes = response.body()?.meals
+                listaRefeicoes?.let {
+                    procurarMealsLiveData.postValue(it)
+                }
+            }
+            override fun onFailure(call: Call<ListaRefeicoes>, t: Throwable) {
+                Log.d("homeViewModel", t.message.toString())
+            }
+        })
+
+    }
+
+    fun observarProcurarMealsLiveData(): LiveData<List<Meal>> {
+        return procurarMealsLiveData
     }
     fun observarComidaAleatoriaLiveData(): LiveData<Meal> {
         return comidaAleatoriaLiveData

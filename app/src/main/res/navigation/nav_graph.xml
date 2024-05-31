@@ -9,7 +9,11 @@
         android:id="@+id/inicioFragment"
         android:name="com.victorbarrozo.comidafacil.fragments.InicioFragment"
         android:label="fragment_inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_inicioFragment_to_procurarFragment"
+            app:destination="@id/procurarFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritosFragment"
         android:name="com.victorbarrozo.comidafacil.fragments.FavoritosFragment"
@@ -20,4 +24,9 @@
         android:name="com.victorbarrozo.comidafacil.fragments.CategoriasFragment"
         android:label="fragment_categorias"
         tools:layout="@layout/fragment_categorias" />
+    <fragment
+        android:id="@+id/procurarFragment"
+        android:name="com.victorbarrozo.comidafacil.fragments.ProcurarFragment"
+        android:label="fragment_procurar"
+        tools:layout="@layout/fragment_procurar" />
 </navigation>
